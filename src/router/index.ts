@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-23 20:26:41
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-24 10:40:51
+ * @LastEditTime: 2023-02-24 16:29:46
  */
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -13,16 +13,20 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: () => import('../views/HomeView.vue')
+      redirect: '/main'
     },
     {
-      path: '/about',
-      name: 'about',
+      path: '/main',
+      name: 'main',
+      component: () => import('../views/mian/Main.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      component: () => import('../views/login/Login.vue')
     }
   ]
 })

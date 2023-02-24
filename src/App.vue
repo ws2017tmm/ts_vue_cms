@@ -4,17 +4,21 @@
  * @Autor: StevenWu
  * @Date: 2023-02-23 20:26:41
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-24 11:40:41
+ * @LastEditTime: 2023-02-24 16:39:58
 -->
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-
-console.log(import.meta.env, '---import.meta')
 </script>
 
 <template>
-  <div class="wrapper">App</div>
-  <RouterView />
+  <div class="app">
+    <router-view />
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.app {
+  width: 100vw;
+  height: 100vh;
+}
+</style>
