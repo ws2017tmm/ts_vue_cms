@@ -7,7 +7,7 @@
  * @LastEditTime: 2023-02-24 10:32:51
 -->
 <script setup lang="ts">
-import { RouterView } from "vue-router";
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
