@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-24 16:09:17
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-24 16:40:24
+ * @LastEditTime: 2023-02-26 21:57:49
 -->
 <template>
   <div class="login">
@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import LoginPanel from './c-cpns/LoginPanel.vue'
+import LoginPanel from './c-cpns/login-panel.vue'
 </script>
 
 <style scoped>

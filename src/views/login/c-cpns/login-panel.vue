@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-24 16:35:39
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-26 20:41:16
+ * @LastEditTime: 2023-02-26 21:58:26
 -->
 <template>
   <div class="login-panel">
@@ -57,8 +57,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { localCache } from '@/utils/cache'
-import PaneAccount from './PaneAccount.vue'
-import PanePhone from './PanePhone.vue'
+import PaneAccount from './pane-account.vue'
+import PanePhone from './pane-phone.vue'
 import { LOGIN_REMEMBER_PASSWARD } from '@/global/constants'
 
 const activeName = ref('account')
