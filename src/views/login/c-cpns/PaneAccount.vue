@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-24 17:01:40
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-26 20:19:03
+ * @LastEditTime: 2023-02-26 20:40:04
 -->
 <template>
   <div class="account">
@@ -46,6 +46,7 @@ import {
   LOGIN_PASSWORD,
   LOGIN_REMEMBER_PASSWARD
 } from '@/global/constants'
+import router from '@/router'
 
 // const formList: [
 //   { prop: 'name'; label: string },
@@ -55,8 +56,8 @@ import {
 //   { prop: 'password', label: '密码' }
 // ]
 const account = reactive<IAccount>({
-  name: '',
-  password: ''
+  name: localCache.getCache(LOGIN_USERNAME) ?? '',
+  password: localCache.getCache(LOGIN_PASSWORD) ?? ''
 })
 // 表单规则
 const rules = reactive({
@@ -103,6 +104,8 @@ const loginAction = (isRemPwd: boolean) => {
         }
         // 记录记住密码的状态
         localCache.setCache(LOGIN_REMEMBER_PASSWARD, isRemPwd)
+        // 路由跳转
+        router.push('/main')
       })
     } else {
       ElMessage.error('请您输入正确的帐号或密码~~')

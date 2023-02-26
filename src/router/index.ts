@@ -4,12 +4,12 @@
  * @Autor: StevenWu
  * @Date: 2023-02-23 20:26:41
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-24 16:29:46
+ * @LastEditTime: 2023-02-26 20:37:05
  */
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(),
   routes: [
     {
       path: '/',

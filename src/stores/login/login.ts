@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-26 16:20:34
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-26 20:02:24
+ * @LastEditTime: 2023-02-26 20:28:36
  */
 import { defineStore } from 'pinia'
 
@@ -23,7 +23,7 @@ const useLoginStore = defineStore({
       // 登录接口
       const result = await accountLoginRequest(account)
       this.token = result.data.token
-      // 本地缓存
+      // 本地缓存token
       localCache.setCache(LOGIN_TOKEN, this.token)
     }
   }

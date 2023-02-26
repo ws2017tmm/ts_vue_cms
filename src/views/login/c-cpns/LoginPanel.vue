@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-24 16:35:39
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-26 20:21:31
+ * @LastEditTime: 2023-02-26 20:41:16
 -->
 <template>
   <div class="login-panel">
@@ -59,9 +59,12 @@ import { ref } from 'vue'
 import { localCache } from '@/utils/cache'
 import PaneAccount from './PaneAccount.vue'
 import PanePhone from './PanePhone.vue'
+import { LOGIN_REMEMBER_PASSWARD } from '@/global/constants'
 
 const activeName = ref('account')
-const isRemPwd = ref<boolean>(localCache.getCache('isRemPwd') ?? false)
+const isRemPwd = ref<boolean>(
+  localCache.getCache(LOGIN_REMEMBER_PASSWARD) ?? false
+)
 
 const accountRef = ref<InstanceType<typeof PaneAccount>>()
 
