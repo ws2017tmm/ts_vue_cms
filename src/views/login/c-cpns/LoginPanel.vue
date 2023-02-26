@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-24 16:35:39
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-26 20:10:45
+ * @LastEditTime: 2023-02-26 20:21:31
 -->
 <template>
   <div class="login-panel">
@@ -67,7 +67,7 @@ const accountRef = ref<InstanceType<typeof PaneAccount>>()
 
 function handleLoginBtnClick() {
   if (activeName.value === 'account') {
-    accountRef.value?.loginAction(isRemPwd)
+    accountRef.value?.loginAction(isRemPwd.value)
   } else {
     console.log('用户在进行手机登录')
   }
