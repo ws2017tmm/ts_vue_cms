@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-24 16:35:39
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-24 17:28:26
+ * @LastEditTime: 2023-02-26 16:54:58
 -->
 <template>
   <div class="login-panel">
@@ -22,8 +22,7 @@
               <span class="text">帐号登录</span>
             </div>
           </template>
-          <pane-account />
-          <!-- ref="accountRef" -->
+          <pane-account ref="accountRef" />
         </el-tab-pane>
 
         <!-- 2.手机登录的Pane -->
@@ -67,11 +66,11 @@ const isRemPwd = ref(false)
 // watch(isRemPwd, (newValue) => {
 //   localCache.setCache('isRemPwd', newValue)
 // })
-// const accountRef = ref<InstanceType<typeof PaneAccount>>()
+const accountRef = ref<InstanceType<typeof PaneAccount>>()
 
 function handleLoginBtnClick() {
   if (activeName.value === 'account') {
-    // accountRef.value?.loginAction(isRemPwd.value)
+    accountRef.value?.loginAction()
   } else {
     console.log('用户在进行手机登录')
   }
