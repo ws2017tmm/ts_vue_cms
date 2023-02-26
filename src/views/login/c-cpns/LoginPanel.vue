@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-24 16:35:39
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-26 16:54:58
+ * @LastEditTime: 2023-02-26 20:10:45
 -->
 <template>
   <div class="login-panel">
@@ -55,22 +55,19 @@
 </template>
 
 <script setup lang="ts">
-// import { localCache } from '@/utils/cache'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
+import { localCache } from '@/utils/cache'
 import PaneAccount from './PaneAccount.vue'
 import PanePhone from './PanePhone.vue'
 
 const activeName = ref('account')
-const isRemPwd = ref(false)
-// const isRemPwd = ref<boolean>(localCache.getCache('isRemPwd') ?? false)
-// watch(isRemPwd, (newValue) => {
-//   localCache.setCache('isRemPwd', newValue)
-// })
+const isRemPwd = ref<boolean>(localCache.getCache('isRemPwd') ?? false)
+
 const accountRef = ref<InstanceType<typeof PaneAccount>>()
 
 function handleLoginBtnClick() {
   if (activeName.value === 'account') {
-    accountRef.value?.loginAction()
+    accountRef.value?.loginAction(isRemPwd)
   } else {
     console.log('用户在进行手机登录')
   }
