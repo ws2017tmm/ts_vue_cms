@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-26 16:20:34
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-27 10:39:39
+ * @LastEditTime: 2023-02-27 11:18:53
  */
 import { defineStore } from 'pinia'
 
@@ -27,8 +27,8 @@ const useLoginStore = defineStore({
   id: 'login',
   state: (): ILoginState => ({
     token: localCache.getCache(LOGIN_TOKEN) || '',
-    userInfo: {},
-    userMenus: []
+    userInfo: localCache.getCache(MAIN_USERINFO) || {},
+    userMenus: localCache.getCache(MAIN_USERMENU) || []
   }),
   actions: {
     async loginAccountAction(account: IAccount) {

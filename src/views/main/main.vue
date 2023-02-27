@@ -4,17 +4,17 @@
  * @Autor: StevenWu
  * @Date: 2023-02-24 16:14:24
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-27 10:00:46
+ * @LastEditTime: 2023-02-27 11:16:27
 -->
 <template>
   <div class="main">
     <el-container class="main-content">
-      <el-aside width="210px">
-        <main-menu />
+      <el-aside :width="isFold ? '60px' : '210px'">
+        <main-menu :is-fold="isFold" />
       </el-aside>
       <el-container>
         <el-header height="50px">
-          <main-header />
+          <main-header @fold-change="handleFoldChange" />
         </el-header>
         <el-main>
           <router-view></router-view>
@@ -27,6 +27,13 @@
 <script setup lang="ts">
 import MainMenu from '@/components/main-menu/main-menu.vue'
 import MainHeader from '@/components/main-header/main-header.vue'
+import { ref } from 'vue'
+
+// 处理main-header中折叠的变化
+const isFold = ref(false)
+function handleFoldChange(flag: boolean) {
+  isFold.value = flag
+}
 </script>
 
 <style lang="less" scoped>
