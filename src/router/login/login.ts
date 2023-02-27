@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-26 20:43:12
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-26 21:17:40
+ * @LastEditTime: 2023-02-27 10:46:27
  */
 import router from '../route'
 import { LOGIN_TOKEN } from '@/global/constants'
@@ -12,7 +12,6 @@ import { localCache } from '@/utils/cache'
 
 const whiteList = ['/login']
 router.beforeEach((to, from, next) => {
-  console.log(to, from, next, '---beforeEach')
   const token = localCache.getCache(LOGIN_TOKEN)
   if (token) {
     next()

@@ -4,27 +4,55 @@
  * @Autor: StevenWu
  * @Date: 2023-02-26 16:20:34
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-26 20:28:36
+ * @LastEditTime: 2023-02-27 10:39:39
  */
 import { defineStore } from 'pinia'
 
 import type { IAccount } from '@/types'
-import { accountLoginRequest } from '@/service/login/login'
+import {
+  accountLoginRequest,
+  getUserInfoById,
+  getUserMenusByRoleId
+} from '@/service/login/login'
 import { localCache } from '@/utils/cache'
-import { LOGIN_TOKEN } from '@/global/constants'
+import { LOGIN_TOKEN, MAIN_USERINFO, MAIN_USERMENU } from '@/global/constants'
+
+interface ILoginState {
+  token: string
+  userInfo: any
+  userMenus: any[]
+}
 
 const useLoginStore = defineStore({
   id: 'login',
-  state: () => ({
-    token: localCache.getCache(LOGIN_TOKEN) || ''
+  state: (): ILoginState => ({
+    token: localCache.getCache(LOGIN_TOKEN) || '',
+    userInfo: {},
+    userMenus: []
   }),
   actions: {
     async loginAccountAction(account: IAccount) {
       // 登录接口
       const result = await accountLoginRequest(account)
       this.token = result.data.token
+      const id = result.data.id
+
       // 本地缓存token
       localCache.setCache(LOGIN_TOKEN, this.token)
+
+      // 根据登录返回的id请求用户详细信息(role信息)
+      const userInfoResult = await getUserInfoById(id)
+      const userInfo = userInfoResult.data
+      this.userInfo = userInfo
+
+      // 根据角色请求用户的权限(菜单menus)
+      const userMenusResult = await getUserMenusByRoleId(this.userInfo.role.id)
+      const userMenus = userMenusResult.data
+      this.userMenus = userMenus
+
+      // 4.进行本地缓存
+      localCache.setCache(MAIN_USERINFO, userInfo)
+      localCache.setCache(MAIN_USERMENU, userMenus)
     }
   }
 })
