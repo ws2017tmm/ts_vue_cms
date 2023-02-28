@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-26 22:02:26
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-28 09:32:16
+ * @LastEditTime: 2023-02-28 13:13:01
 -->
 <template>
   <div class="main-menu">
@@ -16,7 +16,7 @@
     <!-- 2.menu -->
     <div class="menu">
       <el-menu
-        default-active="3"
+        :default-active="defaultActive"
         :collapse="isFold"
         text-color="#b7bdc3"
         active-text-color="#fff"
@@ -24,7 +24,7 @@
       >
         <!-- 遍历整个菜单 -->
         <template v-for="item in userMenus" :key="item.id">
-          <el-sub-menu :index="item.id + ''">
+          <el-sub-menu :index="item.url">
             <template #title>
               <!-- 字符串: el-icon-monitor => 组件 component动态组件 -->
               <el-icon>
@@ -35,7 +35,7 @@
 
             <template v-for="subitem in item.children" :key="subitem.id">
               <el-menu-item
-                :index="subitem.id + ''"
+                :index="subitem.url"
                 @click="handleItemClick(subitem)"
               >
                 {{ subitem.name }}
@@ -49,6 +49,8 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import router from '@/router'
 import useLoginStore from '@/stores/login/login'
 
@@ -67,6 +69,11 @@ function handleItemClick(subitem: any) {
   const url = subitem.url
   router.push(url)
 }
+// 默认菜单
+const route = useRoute()
+const defaultActive = computed(() => {
+  return route.path
+})
 </script>
 
 <style lang="less" scoped>

@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-26 16:20:34
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-28 09:27:21
+ * @LastEditTime: 2023-02-28 13:09:21
  */
 import { defineStore } from 'pinia'
 
@@ -60,6 +60,21 @@ const useLoginStore = defineStore({
       // 加载所有的路由
       const routes = mapMenusToRoutes(userMenus)
       routes.forEach((route) => router.addRoute('main', route))
+    },
+    loadLocalCacheAction() {
+      // 1.用户进行刷新默认加载数据
+      const token = localCache.getCache(LOGIN_TOKEN)
+      const userInfo = localCache.getCache(MAIN_USERINFO)
+      const userMenus = localCache.getCache(MAIN_USERMENU)
+      if (token && userInfo && userMenus) {
+        this.token = token
+        this.userInfo = userInfo
+        this.userMenus = userMenus
+
+        // 2.动态添加路由
+        const routes = mapMenusToRoutes(userMenus)
+        routes.forEach((route) => router.addRoute('main', route))
+      }
     }
   }
 })
