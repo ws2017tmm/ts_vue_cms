@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-26 16:20:34
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-27 11:18:53
+ * @LastEditTime: 2023-02-28 09:27:21
  */
 import { defineStore } from 'pinia'
 
@@ -16,6 +16,8 @@ import {
 } from '@/service/login/login'
 import { localCache } from '@/utils/cache'
 import { LOGIN_TOKEN, MAIN_USERINFO, MAIN_USERMENU } from '@/global/constants'
+import { mapMenusToRoutes } from '@/utils/map-menus'
+import router from '@/router'
 
 interface ILoginState {
   token: string
@@ -50,9 +52,14 @@ const useLoginStore = defineStore({
       const userMenus = userMenusResult.data
       this.userMenus = userMenus
 
-      // 4.进行本地缓存
+      // 进行本地缓存
       localCache.setCache(MAIN_USERINFO, userInfo)
       localCache.setCache(MAIN_USERMENU, userMenus)
+
+      // 动态路由
+      // 加载所有的路由
+      const routes = mapMenusToRoutes(userMenus)
+      routes.forEach((route) => router.addRoute('main', route))
     }
   }
 })

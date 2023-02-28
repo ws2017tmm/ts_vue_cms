@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-26 22:02:26
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-27 10:37:51
+ * @LastEditTime: 2023-02-28 09:32:16
 -->
 <template>
   <div class="main-menu">
@@ -49,6 +49,7 @@
 </template>
 
 <script setup lang="ts">
+import router from '@/router'
 import useLoginStore from '@/stores/login/login'
 
 // props
@@ -63,7 +64,8 @@ const loginStore = useLoginStore()
 const userMenus = loginStore.userMenus
 // 监听菜单的点击
 function handleItemClick(subitem: any) {
-  console.log(subitem, '---')
+  const url = subitem.url
+  router.push(url)
 }
 </script>
 
