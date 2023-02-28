@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-26 22:02:14
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-27 11:10:34
+ * @LastEditTime: 2023-02-28 14:33:44
 -->
 <template>
   <div class="main-header">
@@ -14,7 +14,7 @@
       </el-icon>
     </div>
     <div class="content">
-      <div class="breadcrumb">面包屑</div>
+      <header-crumb />
       <personal-info />
     </div>
   </div>
@@ -23,6 +23,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import PersonalInfo from './c-cpns/personal-info.vue'
+import headerCrumb from './c-cpns/header-crumb.vue'
 
 // 记录状态---展开还是折叠
 const isFold = ref(false)
