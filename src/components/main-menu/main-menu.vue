@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-26 22:02:26
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-28 13:13:01
+ * @LastEditTime: 2023-02-28 16:00:40
 -->
 <template>
   <div class="main-menu">
@@ -18,6 +18,7 @@
       <el-menu
         :default-active="defaultActive"
         :collapse="isFold"
+        unique-opened
         text-color="#b7bdc3"
         active-text-color="#fff"
         background-color="#001529"

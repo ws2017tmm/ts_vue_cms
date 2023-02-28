@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-27 15:03:26
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-28 14:42:34
+ * @LastEditTime: 2023-02-28 15:58:47
  */
 import type { RouteRecordRaw } from 'vue-router'
 
@@ -71,19 +71,44 @@ interface IBreadcrumbs {
   path: string
 }
 export function mapPathToBreadcrumbs(path: string, userMenus: any[]) {
-  // 1.定义面包屑
-  const breadcrumbs: IBreadcrumbs[] = []
-
   // 2.遍历获取面包屑层级
-  for (const menu of userMenus) {
-    for (const submenu of menu.children) {
-      if (submenu.url === path) {
-        // 1.顶层菜单
+  // for (const menu of userMenus) {
+  //   for (const submenu of menu.children) {
+  //     if (submenu.url === path) {
+  //       // 1.顶层菜单
+  //       breadcrumbs.push({ name: menu.name, path: menu.url })
+  //       // 2.匹配菜单
+  //       breadcrumbs.push({ name: submenu.name, path: submenu.url })
+  //     }
+  //   }
+  // }
+
+  const searchParent = (path: string, menus: any[]) => {
+    // 定义面包屑
+    let breadcrumbs: IBreadcrumbs[] = []
+    for (let i = 0; i < menus.length; i++) {
+      const menu = menus[i]
+      if (menu.url === path) {
+        //若查询到对应的节点，则直接返回
         breadcrumbs.push({ name: menu.name, path: menu.url })
-        // 2.匹配菜单
-        breadcrumbs.push({ name: submenu.name, path: submenu.url })
+        break
+      } else if (menu.children?.length > 0) {
+        const subMenu = menu.children[0]
+        if (subMenu.url?.length > 0) {
+          //判断是否还有子节点，若有对子节点进行循环调用
+          const p = searchParent(path, menu.children)
+          //若p的长度不为0，则说明子节点在该节点的children内，记录此节点，并终止循环
+          if (p.length !== 0) {
+            p.unshift({ name: menu.name, path: menu.url })
+            breadcrumbs = p
+            break
+          }
+        } else {
+          continue
+        }
       }
     }
+    return breadcrumbs
   }
-  return breadcrumbs
+  return searchParent(path, userMenus)
 }
