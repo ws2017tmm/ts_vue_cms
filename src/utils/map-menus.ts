@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-27 15:03:26
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-28 09:25:18
+ * @LastEditTime: 2023-02-28 14:08:11
  */
 import type { RouteRecordRaw } from 'vue-router'
 
@@ -61,5 +61,7 @@ export function mapMenusToRoutes(menus: any[]) {
     }
   }
   ergodic(menus)
+  // 重定向/mian的路由
+  routes.unshift({ path: '/main', redirect: routes[0].path })
   return routes
 }
