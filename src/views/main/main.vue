@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-24 16:14:24
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-28 13:07:38
+ * @LastEditTime: 2023-03-02 10:15:59
 -->
 <template>
   <div class="main">
@@ -67,6 +67,7 @@ function handleFoldChange(flag: boolean) {
 
   .el-main {
     background-color: #f0f2f5;
+    --el-main-padding: 10px;
   }
 }
 </style>
