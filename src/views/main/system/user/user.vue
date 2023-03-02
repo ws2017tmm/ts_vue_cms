@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-27 11:32:31
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-02 11:12:57
+ * @LastEditTime: 2023-03-02 14:52:38
 -->
 <template>
   <div class="user">
@@ -172,13 +172,21 @@
         @current-change="handleCurrentChange"
       />
     </div>
+    <!-- 弹框 -->
+    <user-modal
+      ref="modalRef"
+      @edit-data="handleEditData"
+      @add-data="handleAddData"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import type { ElForm } from 'element-plus'
+import { ElMessageBox } from 'element-plus'
 import { storeToRefs } from 'pinia'
+import UserModal from './c-cpns/user-modal.vue'
 import useSystemStore from '@/stores/main/system/system'
 import { formatUTC } from '@/utils/format-date'
 
@@ -211,16 +219,25 @@ function handleResetClick() {
 function handleQueryClick() {
   fetchUserListData()
 }
-
+const modalRef = ref<InstanceType<typeof UserModal>>()
 /** table里的编辑和删除 */
 function handleNewUserClick() {
-  console.log('---新建')
+  modalRef.value?.show(true)
 }
 function handleEditBtnClick(data: any) {
-  console.log(data, '---编辑')
+  modalRef.value?.show(false, data)
 }
-function handleDeleteBtnClick(id: string) {
-  console.log(id, '---删除')
+function handleDeleteBtnClick(id: number) {
+  ElMessageBox.confirm('确定删除这个用户吗？', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    systemStore.deleteUserByIdAction(id).then(() => {
+      ElMessage.success('删除用户信息成功')
+      fetchUserListData()
+    })
+  })
 }
 /** 页码的操作 */
 function handleSizeChange() {
@@ -237,6 +254,20 @@ function fetchUserListData() {
   }
   const params = { ...searchForm, ...pageInfo }
   systemStore.getUserListAction(params)
+}
+/** 弹框的回调 */
+function handleEditData(id: number, formData: any) {
+  systemStore.editUserDataAction(id, formData).then(() => {
+    ElMessage.success('修改用户信息成功')
+    fetchUserListData()
+  })
+}
+
+function handleAddData(formData: any) {
+  systemStore.addNewUserDataAction(formData).then(() => {
+    ElMessage.success('新增用户成功')
+    fetchUserListData()
+  })
 }
 </script>
 

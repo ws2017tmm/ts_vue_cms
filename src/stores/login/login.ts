@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-26 16:20:34
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-28 13:09:21
+ * @LastEditTime: 2023-03-02 14:23:04
  */
 import { defineStore } from 'pinia'
 
@@ -18,6 +18,7 @@ import { localCache } from '@/utils/cache'
 import { LOGIN_TOKEN, MAIN_USERINFO, MAIN_USERMENU } from '@/global/constants'
 import { mapMenusToRoutes } from '@/utils/map-menus'
 import router from '@/router'
+import useMainStore from '../main/main'
 
 interface ILoginState {
   token: string
@@ -56,6 +57,10 @@ const useLoginStore = defineStore({
       localCache.setCache(MAIN_USERINFO, userInfo)
       localCache.setCache(MAIN_USERMENU, userMenus)
 
+      // 请求所有roles/departments数据
+      const mainStore = useMainStore()
+      mainStore.fetchEntireDataAction()
+
       // 动态路由
       // 加载所有的路由
       const routes = mapMenusToRoutes(userMenus)
@@ -70,6 +75,10 @@ const useLoginStore = defineStore({
         this.token = token
         this.userInfo = userInfo
         this.userMenus = userMenus
+
+        // 请求所有roles/departments数据
+        const mainStore = useMainStore()
+        mainStore.fetchEntireDataAction()
 
         // 2.动态添加路由
         const routes = mapMenusToRoutes(userMenus)

@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-24 16:14:24
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-02 10:15:59
+ * @LastEditTime: 2023-03-02 15:04:12
 -->
 <template>
   <div class="main">
@@ -28,10 +28,6 @@
 import MainMenu from '@/components/main-menu/main-menu.vue'
 import MainHeader from '@/components/main-header/main-header.vue'
 import { ref } from 'vue'
-import { useRoute } from 'vue-router'
-
-const router = useRoute()
-console.log(router, '----router')
 
 // 处理main-header中折叠的变化
 const isFold = ref(false)
