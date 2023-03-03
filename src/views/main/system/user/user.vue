@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-27 11:32:31
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-02 14:52:38
+ * @LastEditTime: 2023-03-03 09:04:24
 -->
 <template>
   <div class="user">
@@ -213,14 +213,20 @@ const { userList, usersTotalCount } = storeToRefs(systemStore)
 const formRef = ref<InstanceType<typeof ElForm>>()
 function handleResetClick() {
   formRef.value?.resetFields()
+  resetPagination()
   fetchUserListData()
 }
 // 搜索
 function handleQueryClick() {
+  resetPagination()
   fetchUserListData()
 }
-const modalRef = ref<InstanceType<typeof UserModal>>()
+function resetPagination() {
+  page.currentPage = 1
+  page.pageSize = 10
+}
 /** table里的编辑和删除 */
+const modalRef = ref<InstanceType<typeof UserModal>>()
 function handleNewUserClick() {
   modalRef.value?.show(true)
 }
