@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-27 11:32:31
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-03 17:18:43
+ * @LastEditTime: 2023-03-05 19:18:59
 -->
 <template>
   <div class="page">
@@ -68,7 +68,7 @@
     <!-- 表格头部 -->
     <div class="table-header">
       <h3 class="title">{{ pageConfig.tableConfig.header.title }}</h3>
-      <el-button type="primary" @click="handleNewPageClick">
+      <el-button type="primary" @click="handleAddNewItemClick">
         {{ pageConfig.tableConfig.header.btnTitle }}
       </el-button>
     </div>
@@ -139,12 +139,6 @@
         @current-change="handleCurrentChange"
       />
     </div>
-    <!-- 弹框 -->
-    <user-modal
-      ref="modalRef"
-      @edit-data="handleEditData"
-      @add-data="handleAddData"
-    />
   </div>
 </template>
 
@@ -153,7 +147,6 @@ import { reactive, ref } from 'vue'
 import type { ElForm } from 'element-plus'
 import { ElMessageBox } from 'element-plus'
 import { storeToRefs } from 'pinia'
-import UserModal from '@/components/common/modal/page-modal.vue'
 import useSystemStore from '@/stores/main/system/system'
 import { formatUTC } from '@/utils/format-date'
 import { FORM_ITEM_TYPE, TABLE_COLUMN_TYPE } from '@/global/constants'
@@ -207,6 +200,10 @@ const page = reactive({
   currentPage: 1,
   pageSize: 10
 })
+
+// 定义事件
+const emit = defineEmits(['addNewClick', 'editClick'])
+
 // 第一次进页面发送请求
 const systemStore = useSystemStore()
 fetchPageListData()
@@ -231,13 +228,13 @@ function resetPagination() {
   page.pageSize = 10
 }
 /** table里的编辑和删除 */
-const modalRef = ref<InstanceType<typeof UserModal>>()
-function handleNewPageClick() {
-  modalRef.value?.show(true)
+function handleAddNewItemClick() {
+  emit('addNewClick')
 }
-function handleEditBtnClick(data: any) {
-  modalRef.value?.show(false, data)
+function handleEditBtnClick(itemData: any) {
+  emit('editClick', itemData)
 }
+
 function handleDeleteBtnClick(id: number) {
   ElMessageBox.confirm(
     `确定删除这个${pageProps.pageConfig.pageDesc}吗？`,
@@ -264,33 +261,20 @@ function handleCurrentChange() {
   fetchPageListData()
 }
 /** 请求数据 */
-function fetchPageListData() {
+function fetchPageListData(isReset?: boolean) {
+  if (isReset) {
+    resetPagination()
+    formRef.value?.resetFields()
+  }
   const pageInfo = {
     size: page.pageSize,
     offset: (page.currentPage - 1) * page.pageSize
   }
-  // const params = { ...pageInfo }
   const params = { ...searchForm, ...pageInfo }
   systemStore.getPageListAction(pageProps.pageConfig.pageName, params)
 }
-/** 弹框的回调 */
-function handleEditData(id: number, formData: any) {
-  systemStore
-    .editPageDataAction(pageProps.pageConfig.pageName, id, formData)
-    .then(() => {
-      ElMessage.success(`修改${pageProps.pageConfig.pageDesc}信息成功`)
-      fetchPageListData()
-    })
-}
-
-function handleAddData(formData: any) {
-  systemStore
-    .addNewPageDataAction(pageProps.pageConfig.pageName, formData)
-    .then(() => {
-      ElMessage.success(`新增${pageProps.pageConfig.pageDesc}成功`)
-      fetchPageListData()
-    })
-}
+// 导出方法，父组件可以调用
+defineExpose({ fetchPageListData })
 </script>
 
 <style lang="less" scoped>
