@@ -4,12 +4,12 @@
  * @Autor: StevenWu
  * @Date: 2023-02-27 11:32:31
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-05 19:18:59
+ * @LastEditTime: 2023-03-06 10:54:23
 -->
 <template>
   <div class="page">
     <!-- 搜索条件 -->
-    <div class="search">
+    <div v-if="pageConfig.searchConfig" class="search">
       <!-- 1.输入搜索关键字的表单 -->
       <el-form
         :model="searchForm"
@@ -68,25 +68,34 @@
     <!-- 表格头部 -->
     <div class="table-header">
       <h3 class="title">{{ pageConfig.tableConfig.header.title }}</h3>
-      <el-button type="primary" @click="handleAddNewItemClick">
+      <el-button
+        v-if="pageConfig.tableConfig.header.btnTitle"
+        type="primary"
+        @click="handleAddNewItemClick"
+      >
         {{ pageConfig.tableConfig.header.btnTitle }}
       </el-button>
     </div>
     <!-- 表格 -->
     <div class="table">
-      <el-table :data="pageList" border style="width: 100%">
+      <el-table
+        :data="pageList"
+        border
+        style="width: 100%"
+        v-bind="pageConfig.tableConfig.childrenTree"
+      >
         <template
           v-for="item in pageConfig.tableConfig.tableList"
           :key="item.prop"
         >
-          <template v-if="item.type === TABLE_COLUMN_TYPE.TIMER">
+          <template v-if="item.tc_type === TABLE_COLUMN_TYPE.TIMER">
             <el-table-column align="center" v-bind="item">
               <template #default="scope">
                 {{ formatUTC(scope.row[item.prop]) }}
               </template>
             </el-table-column>
           </template>
-          <template v-else-if="item.type === TABLE_COLUMN_TYPE.OPERATION">
+          <template v-else-if="item.tc_type === TABLE_COLUMN_TYPE.OPERATION">
             <el-table-column align="center" v-bind="item">
               <template #default="scope">
                 <el-button
@@ -110,7 +119,7 @@
               </template>
             </el-table-column>
           </template>
-          <template v-else-if="item.type === TABLE_COLUMN_TYPE.CUSTOM">
+          <template v-else-if="item.tc_type === TABLE_COLUMN_TYPE.CUSTOM">
             <el-table-column align="center" v-bind="item">
               <template #default="scope">
                 <slot
@@ -120,6 +129,18 @@
                 ></slot>
               </template>
             </el-table-column>
+          </template>
+          <template
+            v-else-if="
+              item.tc_type === TABLE_COLUMN_TYPE.SELECTION ||
+              item.tc_type === TABLE_COLUMN_TYPE.INDEX
+            "
+          >
+            <el-table-column
+              align="center"
+              v-bind="item"
+              :type="item.tc_type"
+            />
           </template>
           <template v-else>
             <el-table-column align="center" v-bind="item" />
@@ -162,7 +183,7 @@ interface ISearchType {
 }
 /** table的prop */
 interface ITableType {
-  type: string
+  tc_type: string
   prop: string
   label: string
   width?: string
@@ -179,9 +200,10 @@ interface IPageProps {
     tableConfig: {
       header: {
         title: string
-        btnTitle: string
+        btnTitle?: string
       }
       tableList: ITableType[]
+      childrenTree?: any
     }
   }
 }

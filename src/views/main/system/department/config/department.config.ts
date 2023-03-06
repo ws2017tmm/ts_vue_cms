@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-03-03 09:15:55
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-05 17:01:07
+ * @LastEditTime: 2023-03-06 10:32:50
  */
 import {
   PAGE_NAME,
@@ -44,39 +44,39 @@ const pageConfig = {
     },
     tableList: [
       {
-        type: TABLE_COLUMN_TYPE.SELECTION,
+        tc_type: TABLE_COLUMN_TYPE.SELECTION,
         prop: 'selection',
         label: '选择',
         width: '80px'
       },
       {
-        type: TABLE_COLUMN_TYPE.INDEX,
+        tc_type: TABLE_COLUMN_TYPE.INDEX,
         prop: 'index',
         label: '序号',
         width: '80px'
       },
       {
-        type: TABLE_COLUMN_TYPE.NORMAL,
+        tc_type: TABLE_COLUMN_TYPE.NORMAL,
         label: '部门名称',
         prop: 'name',
         width: '150px'
       },
       {
-        type: TABLE_COLUMN_TYPE.NORMAL,
+        tc_type: TABLE_COLUMN_TYPE.NORMAL,
         label: '部门领导',
         prop: 'leader',
         width: '180px'
       },
       {
-        type: TABLE_COLUMN_TYPE.NORMAL,
+        tc_type: TABLE_COLUMN_TYPE.NORMAL,
         label: '上级部门',
         prop: 'parentId',
         width: '150px'
       },
-      { type: TABLE_COLUMN_TYPE.TIMER, label: '创建时间', prop: 'createAt' },
-      { type: TABLE_COLUMN_TYPE.TIMER, label: '更新时间', prop: 'updateAt' },
+      { tc_type: TABLE_COLUMN_TYPE.TIMER, label: '创建时间', prop: 'createAt' },
+      { tc_type: TABLE_COLUMN_TYPE.TIMER, label: '更新时间', prop: 'updateAt' },
       {
-        type: TABLE_COLUMN_TYPE.OPERATION,
+        tc_type: TABLE_COLUMN_TYPE.OPERATION,
         label: '操作',
         prop: 'operation',
         width: '150px'

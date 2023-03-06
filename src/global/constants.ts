@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-26 17:32:51
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-03 17:13:39
+ * @LastEditTime: 2023-03-06 10:04:32
  */
 
 /**
@@ -42,7 +42,8 @@ const PAGE_DESC = {
 const FORM_ITEM_TYPE = {
   INPUT: 'input',
   SELECT: 'select',
-  DATE_PICKER: 'date-picker'
+  DATE_PICKER: 'date-picker',
+  CUSTOM: 'custom'
 }
 
 /**

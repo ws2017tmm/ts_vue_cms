@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-03-02 11:18:34
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-05 18:52:53
+ * @LastEditTime: 2023-03-06 10:07:14
 -->
 <template>
   <div class="modal">
@@ -88,6 +88,7 @@ interface IFormType {
   placeholder?: string
   initialValue?: string
   options?: any[]
+  soltName?: string
 }
 interface IModalProps {
   modalConfig: {

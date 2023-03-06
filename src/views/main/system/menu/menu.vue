@@ -4,13 +4,18 @@
  * @Autor: StevenWu
  * @Date: 2023-02-27 11:32:18
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-27 11:32:54
+ * @LastEditTime: 2023-03-06 10:13:30
 -->
 <template>
-  <div class="menu">menu</div>
+  <div class="menu">
+    <page :page-config="pageConfig" />
+  </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Page from '@/components/common/page/page.vue'
+import pageConfig from './config/menu.config'
+</script>
 
 <style scoped>
 .menu {
