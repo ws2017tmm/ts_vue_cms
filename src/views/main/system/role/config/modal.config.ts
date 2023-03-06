@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-03-06 10:00:33
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-06 10:08:14
+ * @LastEditTime: 2023-03-06 15:18:59
  */
 import { PAGE_NAME, FORM_ITEM_TYPE } from '@/global/constants'
 const modalConfig = {
@@ -29,8 +29,8 @@ const modalConfig = {
     {
       type: FORM_ITEM_TYPE.CUSTOM,
       label: '菜单',
-      prop: 'menulist',
-      slotName: 'menulist'
+      prop: 'menuList',
+      slotName: 'menuList'
     }
   ]
 }

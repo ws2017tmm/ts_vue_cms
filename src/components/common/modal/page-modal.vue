@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-03-02 11:18:34
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-06 10:07:14
+ * @LastEditTime: 2023-03-06 15:57:08
 -->
 <template>
   <div class="modal">
@@ -57,6 +57,9 @@
                 end-placeholder="结束时间"
               />
             </template>
+            <template v-if="item.type === FORM_ITEM_TYPE.CUSTOM">
+              <slot :name="item.slotName"></slot>
+            </template>
           </el-form-item>
         </el-form>
       </div>
@@ -88,7 +91,7 @@ interface IFormType {
   placeholder?: string
   initialValue?: string
   options?: any[]
-  soltName?: string
+  slotName?: string
 }
 interface IModalProps {
   modalConfig: {
@@ -138,9 +141,10 @@ const formRef = ref<InstanceType<typeof ElForm>>()
 function hidden() {
   formRef.value?.resetFields()
   dialogVisible.value = false
+  emit('hidden')
 }
 
-const emit = defineEmits(['editData', 'addData'])
+const emit = defineEmits(['editData', 'addData', 'hidden'])
 // 点击了确定的逻辑
 function handleConfirmClick() {
   if (!isAddRef.value && editData.value) {

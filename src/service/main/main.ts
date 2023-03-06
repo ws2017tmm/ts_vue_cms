@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-03-02 11:25:30
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-02 11:26:45
+ * @LastEditTime: 2023-03-06 11:34:02
  */
 import wsRequest from '..'
 
@@ -17,5 +17,11 @@ export function getEntireRoles() {
 export function getEntireDepartments() {
   return wsRequest.post({
     url: '/department/list'
+  })
+}
+
+export function getEntireMenus() {
+  return wsRequest.post({
+    url: '/menu/list'
   })
 }

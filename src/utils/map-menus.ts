@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-27 15:03:26
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-02-28 16:02:15
+ * @LastEditTime: 2023-03-06 16:14:08
  */
 import type { RouteRecordRaw } from 'vue-router'
 
@@ -100,4 +100,25 @@ export function mapPathToBreadcrumbs(path: string, userMenus: any[]) {
     return breadcrumbs
   }
   return searchParent(path, userMenus)
+}
+
+/**
+ * 菜单映射到id的列表
+ * @param menuList
+ */
+export function mapMenuListToIds(menuList: any[]) {
+  const ids: number[] = []
+
+  function recurseGetId(menus: any[]) {
+    for (const item of menus) {
+      if (item.children) {
+        recurseGetId(item.children)
+      } else {
+        ids.push(item.id)
+      }
+    }
+  }
+  recurseGetId(menuList)
+
+  return ids
 }
