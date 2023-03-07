@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-03-05 18:33:49
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-05 18:38:06
+ * @LastEditTime: 2023-03-07 15:06:51
  */
 interface IFormType {
   type: string
@@ -16,6 +16,7 @@ interface IFormType {
 }
 export interface IModalConfig {
   modalName: string
+  modalDesc: string
   header: {
     addTitle: string
     editTitle: string

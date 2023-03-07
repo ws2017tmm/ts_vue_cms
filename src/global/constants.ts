@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-26 17:32:51
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-06 10:04:32
+ * @LastEditTime: 2023-03-07 14:35:16
  */
 
 /**
@@ -21,7 +21,7 @@ const MAIN_USERMENU = 'main/user/menu'
  * page-name
  */
 const PAGE_NAME = {
-  USER: 'user',
+  USER: 'users',
   ROLE: 'role',
   DEPARTMENT: 'department',
   MENU: 'menu'

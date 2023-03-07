@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-03-02 11:18:34
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-07 14:06:37
+ * @LastEditTime: 2023-03-07 14:54:16
 -->
 <template>
   <div class="modal">
@@ -32,6 +32,7 @@
               <el-input
                 v-model="formData[item.prop]"
                 :placeholder="item.placeholder"
+                :show-password="item.prop === 'password'"
               />
             </template>
             <template v-if="item.type === FORM_ITEM_TYPE.SELECT">
