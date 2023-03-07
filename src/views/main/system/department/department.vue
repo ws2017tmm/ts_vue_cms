@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-27 11:32:09
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-05 19:33:08
+ * @LastEditTime: 2023-03-07 15:17:58
 -->
 <template>
   <div class="department">
@@ -17,20 +17,22 @@
     <page-modal
       :modal-config="modalConfigRef"
       ref="modalRef"
-      @edit-data="editData"
-      @add-data="addData"
+      @confirm-success="handleconfirmSuccess"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import page from '@/components/common/page/page.vue'
 import PageModal from '@/components/common/modal/page-modal.vue'
 import pageConfig from './config/department.config'
 import modalConfig from './config/modal.config'
 import useMainStore from '@/stores/main/main'
-import useSystemStore from '@/stores/main/system/system'
+
+// hooks
+import usePage from '@/hooks/usePage'
+import usePageModal from '@/hooks/usePageModal'
 
 // 设置modal里选项的值
 const mainStore = useMainStore()
@@ -45,29 +47,13 @@ const modalConfigRef = computed(() => {
   })
   return modalConfig
 })
-const modalRef = ref<InstanceType<typeof PageModal>>()
-/** page里面的新增和编辑 */
-function handleAddNewClick() {
-  modalRef.value?.show(true)
-}
-function handleEditClick(itemData: any) {
-  modalRef.value?.show(false, itemData)
-}
-/** modal里面的新增和编辑 */
-const pageRef = ref<InstanceType<typeof page>>()
-const systemStore = useSystemStore()
-function addData(formData: any) {
-  systemStore.addNewPageDataAction(pageConfig.pageName, formData).then(() => {
-    ElMessage.success(`新增${pageConfig.pageDesc}信息成功`)
-    pageRef.value?.fetchPageListData(true)
-  })
-}
-function editData(id: number, formData: any) {
-  systemStore.editPageDataAction(pageConfig.pageName, id, formData).then(() => {
-    ElMessage.success(`编辑${pageConfig.pageDesc}信息成功`)
-    pageRef.value?.fetchPageListData()
-  })
-}
+
+// 逻辑关系--hook
+const { modalRef, handleAddNewClick, handleEditClick } = usePage(
+  pageConfig.pageName,
+  pageConfig.pageDesc
+)
+const { pageRef, handleconfirmSuccess } = usePageModal()
 </script>
 
 <style scoped>
