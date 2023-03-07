@@ -4,14 +4,14 @@
  * @Autor: StevenWu
  * @Date: 2023-03-02 11:26:05
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-06 13:47:52
+ * @LastEditTime: 2023-03-07 16:56:22
  */
+import { defineStore } from 'pinia'
 import {
   getEntireDepartments,
   getEntireRoles,
   getEntireMenus
 } from '@/service/main/main'
-import { defineStore } from 'pinia'
 
 interface IMainState {
   entireRoles: any[]

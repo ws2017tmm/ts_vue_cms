@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-27 15:03:26
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-06 16:14:08
+ * @LastEditTime: 2023-03-07 16:09:15
  */
 import type { RouteRecordRaw } from 'vue-router'
 
@@ -121,4 +121,26 @@ export function mapMenuListToIds(menuList: any[]) {
   recurseGetId(menuList)
 
   return ids
+}
+
+/**
+ * 从菜单映射到按钮的权限
+ * @param menuList 菜单的列表
+ * @returns 权限的数组(字符串数组)
+ */
+export function mapMenusToPermissions(menuList: any[]) {
+  const permissions: string[] = []
+
+  function recurseGetPermission(menus: any[]) {
+    for (const item of menus) {
+      if (item.type === 3) {
+        permissions.push(item.permission)
+      } else {
+        recurseGetPermission(item.children ?? [])
+      }
+    }
+  }
+  recurseGetPermission(menuList)
+
+  return permissions
 }

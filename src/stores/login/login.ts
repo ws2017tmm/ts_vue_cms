@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-26 16:20:34
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-02 14:23:04
+ * @LastEditTime: 2023-03-07 17:00:28
  */
 import { defineStore } from 'pinia'
 
@@ -15,8 +15,13 @@ import {
   getUserMenusByRoleId
 } from '@/service/login/login'
 import { localCache } from '@/utils/cache'
-import { LOGIN_TOKEN, MAIN_USERINFO, MAIN_USERMENU } from '@/global/constants'
-import { mapMenusToRoutes } from '@/utils/map-menus'
+import {
+  LOGIN_TOKEN,
+  MAIN_USERINFO,
+  BUTTON_PERMISSIONS,
+  MAIN_USERMENU
+} from '@/global/constants'
+import { mapMenusToRoutes, mapMenusToPermissions } from '@/utils/map-menus'
 import router from '@/router'
 import useMainStore from '../main/main'
 
@@ -53,9 +58,13 @@ const useLoginStore = defineStore({
       const userMenus = userMenusResult.data
       this.userMenus = userMenus
 
+      // 获取按钮权限
+      const permissions = mapMenusToPermissions(userMenus)
+
       // 进行本地缓存
       localCache.setCache(MAIN_USERINFO, userInfo)
       localCache.setCache(MAIN_USERMENU, userMenus)
+      localCache.setCache(BUTTON_PERMISSIONS, permissions)
 
       // 请求所有roles/departments数据
       const mainStore = useMainStore()

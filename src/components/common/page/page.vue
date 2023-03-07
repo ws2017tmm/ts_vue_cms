@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-27 11:32:31
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-07 09:58:01
+ * @LastEditTime: 2023-03-07 16:50:11
 -->
 <template>
   <div class="page">
@@ -59,8 +59,17 @@
       </el-form>
       <!-- 2.重置和搜索的按钮 -->
       <div class="btns">
-        <el-button icon="Refresh" @click="handleResetClick">重置</el-button>
-        <el-button icon="Search" type="primary" @click="handleQueryClick"
+        <el-button
+          icon="Refresh"
+          v-permission="[`system:${pageConfig.pageName}:query`]"
+          @click="handleResetClick"
+          >重置</el-button
+        >
+        <el-button
+          icon="Search"
+          type="primary"
+          v-permission="[`system:${pageConfig.pageName}:query`]"
+          @click="handleQueryClick"
           >查询</el-button
         >
       </div>
@@ -70,6 +79,7 @@
       <h3 class="title">{{ pageConfig.tableConfig.header.title }}</h3>
       <el-button
         v-if="pageConfig.tableConfig.header.btnTitle"
+        v-permission="[`system:${pageConfig.pageName}:create`]"
         type="primary"
         @click="handleAddNewItemClick"
       >
@@ -126,6 +136,7 @@
                   icon="Edit"
                   type="primary"
                   text
+                  v-permission="[`system:${pageConfig.pageName}:update`]"
                   @click="handleEditBtnClick(scope.row)"
                 >
                   编辑
@@ -135,6 +146,7 @@
                   icon="Delete"
                   type="danger"
                   text
+                  v-permission="[`system:${pageConfig.pageName}:delete`]"
                   @click="handleDeleteBtnClick(scope.row.id)"
                 >
                   删除

@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-26 17:32:51
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-07 14:35:16
+ * @LastEditTime: 2023-03-07 17:00:06
  */
 
 /**
@@ -16,6 +16,7 @@ const LOGIN_PASSWORD = 'login/password'
 const LOGIN_REMEMBER_PASSWARD = 'login/remember/password'
 const MAIN_USERINFO = 'main/user/info'
 const MAIN_USERMENU = 'main/user/menu'
+const BUTTON_PERMISSIONS = '/button/permissions'
 
 /**
  * page-name
@@ -65,6 +66,7 @@ export {
   LOGIN_REMEMBER_PASSWARD,
   MAIN_USERINFO,
   MAIN_USERMENU,
+  BUTTON_PERMISSIONS,
   PAGE_NAME,
   PAGE_DESC,
   FORM_ITEM_TYPE,
