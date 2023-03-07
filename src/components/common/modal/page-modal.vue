@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-03-02 11:18:34
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-07 13:57:33
+ * @LastEditTime: 2023-03-07 14:06:37
 -->
 <template>
   <div class="modal">
@@ -107,8 +107,6 @@ interface IModalProps {
   otherParam?: any
 }
 const modalProps = defineProps<IModalProps>()
-// eslint-disable-next-line no-debugger
-debugger
 const initialForm: any = {}
 if (modalProps.modalConfig.formItems) {
   for (const item of modalProps.modalConfig.formItems) {

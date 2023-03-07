@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-27 11:32:24
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-07 10:31:04
+ * @LastEditTime: 2023-03-07 14:04:48
 -->
 <template>
   <div class="role">
@@ -56,20 +56,16 @@ import useMainStore from '@/stores/main/main'
 import { mapMenuListToIds } from '@/utils/map-menus'
 // hooks
 import usePage from '@/hooks/usePage'
+import usePageModal from '@/hooks/usePageModal'
 
 // 逻辑关系--hook
-const {
-  modalRef,
-  pageRef,
-  handleAddNewClick,
-  handleEditClick,
-  handleconfirmSuccess
-} = usePage(
+const { modalRef, handleAddNewClick, handleEditClick } = usePage(
   pageConfig.pageName,
   pageConfig.pageDesc,
   handleModalData,
   editCallback
 )
+const { pageRef, handleconfirmSuccess } = usePageModal()
 
 // 获取完整的菜单
 const mainStore = useMainStore()
