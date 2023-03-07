@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-03-02 11:18:34
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-06 15:57:08
+ * @LastEditTime: 2023-03-07 13:57:33
 -->
 <template>
   <div class="modal">
@@ -76,9 +76,10 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, computed } from 'vue'
+import { reactive, ref, computed, nextTick } from 'vue'
 import type { ElForm } from 'element-plus'
 import { FORM_ITEM_TYPE } from '@/global/constants'
+import useSystemStore from '@/stores/main/system/system'
 
 // 定义内部的属性
 const dialogVisible = ref(false)
@@ -96,16 +97,18 @@ interface IFormType {
 interface IModalProps {
   modalConfig: {
     modalName: string
+    modalDesc: string
     header: {
       addTitle: string
       editTitle: string
     }
     formItems: IFormType[]
   }
-  otherInfo?: any
+  otherParam?: any
 }
 const modalProps = defineProps<IModalProps>()
-
+// eslint-disable-next-line no-debugger
+debugger
 const initialForm: any = {}
 if (modalProps.modalConfig.formItems) {
   for (const item of modalProps.modalConfig.formItems) {
@@ -128,33 +131,57 @@ const title = computed(() => {
 function show(isAdd: boolean = true, itemData?: any) {
   dialogVisible.value = true
   isAddRef.value = isAdd
-  if (!isAdd && itemData) {
-    // 编辑数据
-    for (const key in formData) {
-      formData[key] = itemData[key]
+  nextTick(() => {
+    if (!isAdd && itemData) {
+      // 编辑数据
+      for (const key in formData) {
+        formData[key] = itemData[key]
+      }
+      editData.value = itemData
     }
-    editData.value = itemData
-  }
+  })
 }
 
 const formRef = ref<InstanceType<typeof ElForm>>()
 function hidden() {
   formRef.value?.resetFields()
-  dialogVisible.value = false
   emit('hidden')
+  dialogVisible.value = false
 }
 
-const emit = defineEmits(['editData', 'addData', 'hidden'])
+const emit = defineEmits(['confirmSuccess', 'hidden'])
 // 点击了确定的逻辑
+const systemStore = useSystemStore()
 function handleConfirmClick() {
+  let param = {}
+  if (modalProps.otherParam) {
+    param = { ...formData, ...modalProps.otherParam }
+  } else {
+    param = { ...formData, ...modalProps.otherParam }
+  }
   if (!isAddRef.value && editData.value) {
     // 编辑用户的数据
-    emit('editData', editData.value.id, formData)
+    systemStore
+      .editPageDataAction(
+        modalProps.modalConfig.modalName,
+        editData.value.id,
+        param
+      )
+      .then(() => {
+        emit('confirmSuccess')
+        hidden()
+        ElMessage.success(`编辑${modalProps.modalConfig.modalDesc}信息成功`)
+      })
   } else {
-    // 创建新的用户
-    emit('addData', formData)
+    // 新增用户的数据
+    systemStore
+      .addNewPageDataAction(modalProps.modalConfig.modalName, param)
+      .then(() => {
+        emit('confirmSuccess')
+        hidden()
+        ElMessage.success(`新增${modalProps.modalConfig.modalDesc}信息成功`)
+      })
   }
-  hidden()
 }
 // 取消
 function handleCancelclick() {

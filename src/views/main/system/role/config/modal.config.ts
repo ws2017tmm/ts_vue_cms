@@ -4,11 +4,12 @@
  * @Autor: StevenWu
  * @Date: 2023-03-06 10:00:33
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-06 15:18:59
+ * @LastEditTime: 2023-03-06 17:28:52
  */
-import { PAGE_NAME, FORM_ITEM_TYPE } from '@/global/constants'
+import { PAGE_NAME, PAGE_DESC, FORM_ITEM_TYPE } from '@/global/constants'
 const modalConfig = {
   modalName: PAGE_NAME.ROLE,
+  modalDesc: PAGE_DESC.ROLE,
   header: {
     addTitle: '新建角色',
     editTitle: '编辑角色'

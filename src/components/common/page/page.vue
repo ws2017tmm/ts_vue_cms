@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-27 11:32:31
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-06 16:18:36
+ * @LastEditTime: 2023-03-07 09:58:01
 -->
 <template>
   <div class="page">
@@ -95,6 +95,29 @@
               </template>
             </el-table-column>
           </template>
+          <template v-else-if="item.tc_type === TABLE_COLUMN_TYPE.CUSTOM">
+            <el-table-column align="center" v-bind="item">
+              <template #default="scope">
+                <slot
+                  :name="item.slotName"
+                  v-bind="scope"
+                  :prop="item.prop"
+                ></slot>
+              </template>
+            </el-table-column>
+          </template>
+          <template
+            v-else-if="
+              item.tc_type === TABLE_COLUMN_TYPE.SELECTION ||
+              item.tc_type === TABLE_COLUMN_TYPE.INDEX
+            "
+          >
+            <el-table-column
+              align="center"
+              v-bind="item"
+              :type="item.tc_type"
+            />
+          </template>
           <template v-else-if="item.tc_type === TABLE_COLUMN_TYPE.OPERATION">
             <el-table-column align="center" v-bind="item">
               <template #default="scope">
@@ -118,29 +141,6 @@
                 </el-button>
               </template>
             </el-table-column>
-          </template>
-          <template v-else-if="item.tc_type === TABLE_COLUMN_TYPE.CUSTOM">
-            <el-table-column align="center" v-bind="item">
-              <template #default="scope">
-                <slot
-                  :name="item.slotName"
-                  v-bind="scope"
-                  :prop="item.prop"
-                ></slot>
-              </template>
-            </el-table-column>
-          </template>
-          <template
-            v-else-if="
-              item.tc_type === TABLE_COLUMN_TYPE.SELECTION ||
-              item.tc_type === TABLE_COLUMN_TYPE.INDEX
-            "
-          >
-            <el-table-column
-              align="center"
-              v-bind="item"
-              :type="item.tc_type"
-            />
           </template>
           <template v-else>
             <el-table-column align="center" v-bind="item" />
