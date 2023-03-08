@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-27 11:30:13
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-08 16:33:40
+ * @LastEditTime: 2023-03-08 16:42:21
 -->
 <template>
   <div class="overview">
@@ -20,6 +20,7 @@
 import { localCache } from '@/utils/cache'
 import { useI18n } from 'vue-i18n'
 const { locale } = useI18n()
+
 function reset() {
   console.log('----reset')
 }
