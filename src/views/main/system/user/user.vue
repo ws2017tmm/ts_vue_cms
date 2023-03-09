@@ -4,13 +4,14 @@
  * @Autor: StevenWu
  * @Date: 2023-03-07 14:11:15
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-07 15:11:28
+ * @LastEditTime: 2023-03-09 14:28:54
 -->
 <template>
   <div class="user">
     <page
       :page-config="pageConfig"
       ref="pageRef"
+      key="4"
       @add-new-click="handleAddNewClick"
       @edit-click="handleEditClick"
     >

@@ -4,11 +4,11 @@
  * @Autor: StevenWu
  * @Date: 2023-02-27 11:32:18
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-06 10:13:30
+ * @LastEditTime: 2023-03-09 14:28:37
 -->
 <template>
   <div class="menu">
-    <page :page-config="pageConfig" />
+    <page :page-config="pageConfig" key="2" />
   </div>
 </template>
 

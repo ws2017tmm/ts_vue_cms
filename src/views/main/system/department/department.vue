@@ -4,7 +4,7 @@
  * @Autor: StevenWu
  * @Date: 2023-02-27 11:32:09
  * @LastEditors: StevenWu
- * @LastEditTime: 2023-03-07 15:17:58
+ * @LastEditTime: 2023-03-09 14:28:24
 -->
 <template>
   <div class="department">
@@ -13,6 +13,7 @@
       ref="pageRef"
       @add-new-click="handleAddNewClick"
       @edit-click="handleEditClick"
+      key="1"
     />
     <page-modal
       :modal-config="modalConfigRef"
